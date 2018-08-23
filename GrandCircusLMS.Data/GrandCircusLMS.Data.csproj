@@ -51,7 +51,10 @@
     <Compile Include="GrandCircusLmsContext.cs" />
     <Compile Include="GrandCircusLmsInitializer.cs" />
     <Compile Include="Maps\CourseMap.cs" />
+    <Compile Include="Maps\EnrollmentMap.cs" />
+    <Compile Include="Maps\InstructorMap.cs" />
     <Compile Include="Maps\LocationMap.cs" />
+    <Compile Include="Maps\StudentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

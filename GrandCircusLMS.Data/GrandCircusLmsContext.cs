@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GrandCircusLMS.Data.Maps;
 using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data
@@ -27,6 +28,16 @@ namespace GrandCircusLMS.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new LocationMap());
+            modelBuilder.Configurations.Add(new CourseMap());
+            modelBuilder.Configurations.Add(new EnrollmentMap());
+            modelBuilder.Configurations.Add(new StudentMap());
+            modelBuilder.Configurations.Add(new InstructorMap());
+            base.OnModelCreating(modelBuilder);
+            
+        }
     }
 }
