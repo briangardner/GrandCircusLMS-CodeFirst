@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="GrandCircusLmsContext.cs" />
     <Compile Include="GrandCircusLmsInitializer.cs" />
+    <Compile Include="Maps\CourseMap.cs" />
+    <Compile Include="Maps\LocationMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +64,6 @@
       <Name>GrandCircusLMS.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Maps\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
