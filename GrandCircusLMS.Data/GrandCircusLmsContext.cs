@@ -20,6 +20,7 @@ namespace GrandCircusLMS.Data
             //Will Drop and recreate if model changes.
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GrandCircusLmsContext>());
             //Custom Initializer
+            Database.SetInitializer(new GrandCircusLmsInitializer());
 
         }
 
