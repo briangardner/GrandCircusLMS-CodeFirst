@@ -5,7 +5,7 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data
 {
-    class GrandCircusLmsInitializer : CreateDatabaseIfNotExists<GrandCircusLmsContext>
+    class GrandCircusLmsInitializer : DropCreateDatabaseIfModelChanges<GrandCircusLmsContext>
     {
         protected override void Seed(GrandCircusLmsContext context)
         {
@@ -118,7 +118,7 @@ namespace GrandCircusLMS.Data
             });
             context.Students.Add(new Student()
             {
-                Id = 10,
+                Id = 9,
                 DateOfBirth = new DateTime(1990, 6, 23),
                 DeclaredMajor = "Cultural Studies",
                 FirstName = "Chris",
@@ -127,7 +127,7 @@ namespace GrandCircusLMS.Data
             });
             context.Students.Add(new Student()
             {
-                Id = 11,
+                Id = 10,
                 DateOfBirth = new DateTime(1992, 8, 23),
                 DeclaredMajor = "Video Game Art",
                 FirstName = "Catherine",
@@ -196,6 +196,7 @@ namespace GrandCircusLMS.Data
                         CourseId = 1,
                         StudentId = 8
                     },
+                    
                     new Enrollment()
                     {
                         Id = 9,

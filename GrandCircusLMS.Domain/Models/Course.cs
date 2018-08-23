@@ -15,5 +15,8 @@ namespace GrandCircusLMS.Domain.Models
         public virtual Location Location { get; set; }
         public virtual ICollection<Instructor> Instructors { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+
+        public int ProgramManagerId { get; set; }
+        public virtual ProgramManager ProgramManager { get; set; }
     }
 }

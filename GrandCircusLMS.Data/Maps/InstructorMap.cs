@@ -9,7 +9,7 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data.Maps
 {
-    class InstructorMap: EntityTypeConfiguration<Instructor>
+    internal class InstructorMap: EntityTypeConfiguration<Instructor>
     {
         public InstructorMap()
         {

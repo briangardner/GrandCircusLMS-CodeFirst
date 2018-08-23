@@ -37,6 +37,7 @@ namespace GrandCircusLMS.Data
             modelBuilder.Configurations.Add(new EnrollmentMap());
             modelBuilder.Configurations.Add(new StudentMap());
             modelBuilder.Configurations.Add(new InstructorMap());
+            modelBuilder.Configurations.Add(new ProgramManagerMap());
             base.OnModelCreating(modelBuilder);
             
         }

@@ -9,7 +9,7 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data.Maps
 {
-    class EnrollmentMap : EntityTypeConfiguration<Enrollment>
+    internal class EnrollmentMap : EntityTypeConfiguration<Enrollment>
     {
         public EnrollmentMap()
         {
