@@ -127,12 +127,21 @@ namespace GrandCircusLMS.Data
             });
             context.Students.Add(new Student()
             {
-                Id = 10,
+                Id = 11,
                 DateOfBirth = new DateTime(1992, 8, 23),
                 DeclaredMajor = "Video Game Art",
                 FirstName = "Catherine",
                 LastName = "Stafford",
                 SocialSecurityNumber = "111-11-1121"
+            });
+            context.Students.Add(new Student()
+            {
+                Id = 11,
+                DateOfBirth = new DateTime(1999, 1, 23),
+                DeclaredMajor = "Smash Brothers",
+                FirstName = "Jacob",
+                LastName = "Hands",
+                SocialSecurityNumber = "111-11-1122"
             });
             context.SaveChanges();
 
