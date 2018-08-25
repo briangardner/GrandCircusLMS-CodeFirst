@@ -1,0 +1,103 @@
+﻿@model GrandCircusLMS_CodeFirst.Models.Courses.CourseDetailsViewModel
+
+@{
+    ViewBag.Title = "Course Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationName)
+        </dd>
+
+        <dt>
+            Program Manager
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProgramManagerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <h4>Students Passing</h4>
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Student Major</th>
+        </tr>
+        @foreach (var student in Model.StudentsPassing)
+        {
+            <tr>
+                <td>@student.FirstName @student.LastName</td>
+                <td>@student.DeclaredMajor</td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<div>
+    <h4>Students Failing</h4>
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Student Major</th>
+        </tr>
+        @foreach (var student in Model.StudentsFailing)
+        {
+            <tr>
+                <td>@student.FirstName @student.LastName</td>
+                <td>@student.DeclaredMajor</td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<div>
+    <h4>Students Missing Grade</h4>
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Student Major</th>
+        </tr>
+        @foreach (var student in Model.StudentsMissingGrade)
+        {
+            <tr>
+                <td>@student.FirstName @student.LastName</td>
+                <td>@student.DeclaredMajor</td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

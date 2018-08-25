@@ -20,7 +20,7 @@ namespace GrandCircusLMS.Infrastructure.Services
             _context = context;
         }
 
-        public ICollection<Student> GetStudentsPassingCourse(Course course)
+        public ICollection<Student> GetStudentsPassing(Course course)
         {
             // 2 Ways to do LINQ queries
             /*var passing2 = _context.Enrollments
@@ -31,6 +31,22 @@ namespace GrandCircusLMS.Infrastructure.Services
                       && (e.Grade.HasValue && e.Grade != Grade.F)
                 select e.Student;
             return passing.ToList();
+        }
+
+        public ICollection<Student> GetStudentsFailing(Course course)
+        {
+            var failing = _context.Enrollments
+                .Where(e => e.CourseId == course.Id && (e.Grade.HasValue && e.Grade == Grade.F))
+                .Select(e => e.Student);
+            return failing.ToList();
+        }
+
+        public ICollection<Student> GetStudentsWithoutGrade(Course course)
+        {
+            var missingGrade = _context.Enrollments
+                .Where(e => e.CourseId == course.Id && !e.Grade.HasValue)
+                .Select(e => e.Student);
+            return missingGrade.ToList();
         }
     }
 }

@@ -5,6 +5,8 @@ namespace GrandCircusLMS.Domain.Interfaces.Services
 {
     public interface ICourseService
     {
-        ICollection<Student> GetStudentsPassingCourse(Course course);
+        ICollection<Student> GetStudentsPassing(Course course);
+        ICollection<Student> GetStudentsFailing(Course course);
+        ICollection<Student> GetStudentsWithoutGrade(Course course);
     }
 }

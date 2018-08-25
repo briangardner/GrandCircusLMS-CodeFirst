@@ -7,18 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GrandCircusLMS.Data;
+using GrandCircusLMS.Data.Interfaces;
+using GrandCircusLMS.Domain.Interfaces.Services;
 using GrandCircusLMS.Domain.Models;
+using GrandCircusLMS_CodeFirst.Models.Courses;
 
 namespace GrandCircusLMS_CodeFirst.Controllers
 {
     public class CoursesController : Controller
     {
-        private GrandCircusLmsContext db = new GrandCircusLmsContext();
+        private readonly IGrandCircusLmsContext _context;
+        private readonly ICourseService _courseService;
+
+        public CoursesController(IGrandCircusLmsContext context, ICourseService courseService)
+        {
+            _context = context;
+            _courseService = courseService;
+        }
 
         // GET: Courses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Location).Include(c => c.ProgramManager);
+            var courses = _context.Courses.Include(c => c.Location).Include(c => c.ProgramManager);
             return View(courses.ToList());
         }
 
@@ -29,7 +39,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = _context.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -37,11 +47,39 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             return View(course);
         }
 
+        // GET: Courses/CourseDetails/5
+        public ActionResult CourseDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Course course = _context.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+            var vm = new CourseDetailsViewModel()
+            {
+                Credits = course.Credits,
+                Instructors = course.Instructors.ToList(),
+                LocationName = course.Location.Name,
+                Name = course.Name,
+                ProgramManagerName = string.Join(" ", course.ProgramManager.FirstName, course.ProgramManager.LastName),
+                StudentsMissingGrade = _courseService.GetStudentsWithoutGrade(course),
+                StudentsFailing = _courseService.GetStudentsFailing(course),
+                StudentsPassing = _courseService.GetStudentsPassing(course),
+            };
+            
+            
+            return View(vm);
+        }
+
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name");
-            ViewBag.ProgramManagerId = new SelectList(db.ProgramManagers, "Id", "FirstName");
+            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name");
+            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName");
             return View();
         }
 
@@ -54,13 +92,13 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
-                db.SaveChanges();
+                _context.Courses.Add(course);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(db.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -71,13 +109,13 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = _context.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(db.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -90,12 +128,12 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
+                _context.Entry(course).State = EntityState.Modified;
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LocationId = new SelectList(db.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(db.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -106,7 +144,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+            Course course = _context.Courses.Find(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -119,9 +157,9 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
-            db.SaveChanges();
+            Course course = _context.Courses.Find(id);
+            _context.Courses.Remove(course);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -129,7 +167,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }
