@@ -157,80 +157,72 @@ namespace GrandCircusLMS.Data
             });
             context.SaveChanges();
 
-            context.Enrollments.AddRange(
-                new List<Enrollment>
-                {
-                    new Enrollment()
-                    {
-                        Id = 1,
-                        CourseId = 1,
-                        StudentId = 1
-                    },
-                    new Enrollment()
-                    {
-                        Id = 2,
-                        CourseId = 1,
-                        StudentId = 2
-                    },
-                    new Enrollment()
-                    {
-                        Id = 3,
-                        CourseId = 1,
-                        StudentId = 3
-                    },
-                    new Enrollment()
-                    {
-                        Id = 4,
-                        CourseId = 1,
-                        StudentId = 4
-                    },
-                    new Enrollment()
-                    {
-                        Id = 5,
-                        CourseId = 1,
-                        StudentId = 5
-                    },
-                    new Enrollment()
-                    {
-                        Id = 6,
-                        CourseId = 1,
-                        StudentId = 6
-                    },
-                    new Enrollment()
-                    {
-                        Id = 7,
-                        CourseId = 1,
-                        StudentId = 7
-                    },
-                    new Enrollment()
-                    {
-                        Id = 8,
-                        CourseId = 1,
-                        StudentId = 8
-                    },
-                    
-                    new Enrollment()
-                    {
-                        Id = 9,
-                        CourseId = 1,
-                        StudentId = 9
-                    },
-                    new Enrollment()
-                    {
-                        Id = 10,
-                        CourseId = 1,
-                        StudentId = 10
-                    },
-                    new Enrollment()
-                    {
-                        Id = 11,
-                        CourseId = 1,
-                        StudentId = 11
-                    },
-
-                }
-
-            );
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 1,
+                CourseId = 1,
+                StudentId = 1
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 2,
+                CourseId = 1,
+                StudentId = 2
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 3,
+                CourseId = 1,
+                StudentId = 3
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 4,
+                CourseId = 1,
+                StudentId = 4
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 5,
+                CourseId = 1,
+                StudentId = 5
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 6,
+                CourseId = 1,
+                StudentId = 6
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 7,
+                CourseId = 1,
+                StudentId = 7
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 8,
+                CourseId = 1,
+                StudentId = 8
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 9,
+                CourseId = 1,
+                StudentId = 9
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 10,
+                CourseId = 1,
+                StudentId = 10
+            });
+            context.Enrollments.Add(new Enrollment()
+            {
+                Id = 11,
+                CourseId = 1,
+                StudentId = 11
+            });
             context.SaveChanges();
 
 
