@@ -3,7 +3,7 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Domain.Interfaces.Services
 {
-    public interface IStudentService
+    public interface ICourseService
     {
         ICollection<Student> GetStudentsPassingCourse(Course course);
     }

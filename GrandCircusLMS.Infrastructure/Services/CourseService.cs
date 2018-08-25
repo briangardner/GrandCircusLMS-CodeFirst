@@ -11,11 +11,11 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Infrastructure.Services
 {
-    internal class StudentService : IStudentService
+    internal class CourseService : ICourseService
     {
         private readonly IGrandCircusLmsContext _context;
 
-        public StudentService(IGrandCircusLmsContext context)
+        public CourseService(IGrandCircusLmsContext context)
         {
             _context = context;
         }

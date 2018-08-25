@@ -16,7 +16,7 @@ namespace GrandCircusLMS.IoC
         public static void SetupContainer(Container container)
         {
             container.Register<IGrandCircusLmsContext, GrandCircusLmsContext>(Lifestyle.Scoped);
-            container.Register<IStudentService, StudentService>();
+            container.Register<ICourseService, CourseService>();
         }
 
     }
