@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GrandCircusLMS.Data.Interfaces;
 using GrandCircusLMS.Data.Maps;
 using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data
 {
-    public class GrandCircusLmsContext : DbContext
+    public class GrandCircusLmsContext : DbContext, IGrandCircusLMSContext
     {
         public GrandCircusLmsContext(): base("GrandCircusLMS")
         {
@@ -24,12 +25,12 @@ namespace GrandCircusLMS.Data
 
         }
 
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Instructor> Instructors { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<ProgramManager> ProgramManagers { get; set; }
+        public IDbSet<Location> Locations { get; set; }
+        public IDbSet<Course> Courses { get; set; }
+        public IDbSet<Student> Students { get; set; }
+        public IDbSet<Instructor> Instructors { get; set; }
+        public IDbSet<Enrollment> Enrollments { get; set; }
+        public IDbSet<ProgramManager> ProgramManagers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

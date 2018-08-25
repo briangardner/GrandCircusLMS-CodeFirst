@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="GrandCircusLmsContext.cs" />
     <Compile Include="GrandCircusLmsInitializer.cs" />
+    <Compile Include="Interfaces\IGrandCircusLMSContext.cs" />
     <Compile Include="Maps\CourseMap.cs" />
     <Compile Include="Maps\EnrollmentMap.cs" />
     <Compile Include="Maps\InstructorMap.cs" />
