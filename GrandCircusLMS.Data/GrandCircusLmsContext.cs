@@ -29,6 +29,7 @@ namespace GrandCircusLMS.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<ProgramManager> ProgramManagers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

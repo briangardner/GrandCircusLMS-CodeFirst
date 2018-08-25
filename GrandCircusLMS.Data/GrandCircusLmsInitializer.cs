@@ -22,6 +22,17 @@ namespace GrandCircusLMS.Data
             context.Instructors.Add(instructor);
             context.SaveChanges();
 
+            var pm = new ProgramManager()
+            {
+                Id = 1,
+                DateOfBirth = new DateTime(1989,7,1),
+                FirstName = "Kelsey",
+                LastName = "Perdue",
+                SocialSecurityNumber = "222-22-2222",
+            };
+            context.ProgramManagers.Add(pm);
+            context.SaveChanges();
+
             var location = new Location()
             {
                 Id = 1,
@@ -39,7 +50,8 @@ namespace GrandCircusLMS.Data
                 Credits = 4,
                 Name = "C# for Ducks",
                 Instructors = new List<Instructor>() {instructor},
-                Location = location
+                Location = location,
+                ProgramManager = pm
             };
             context.Courses.Add(course);
             context.SaveChanges();
