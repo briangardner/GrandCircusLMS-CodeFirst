@@ -8,7 +8,7 @@ namespace GrandCircusLMS.Domain.Enums
 {
     public enum Grade
     {
-        A,
+        A = 0,
         B,
         C,
         D,

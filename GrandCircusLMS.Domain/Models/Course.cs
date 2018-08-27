@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace GrandCircusLMS.Domain.Models
 {
-    public class Course
+    public class Course : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Credits { get; set; }
         public int LocationId { get; set; }

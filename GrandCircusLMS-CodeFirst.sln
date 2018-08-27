@@ -9,6 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS.Data", "Gran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS.Domain", "GrandCircusLMS.Domain\GrandCircusLMS.Domain.csproj", "{D99C1E57-F858-4014-AE57-E66A429A0F06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS.IoC", "GrandCircusLMS.IoC\GrandCircusLMS.IoC.csproj", "{2BEEBF60-D942-4185-977B-2D1AB3FFCDE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS.Infrastructure", "GrandCircusLMS.Infrastructure\GrandCircusLMS.Infrastructure.csproj", "{604E05D9-2364-4116-AB40-177398BDBB94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77EE9F96-6F36-4CA7-A2DD-7FC055D47388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS.Infrastructure.Tests", "GrandCircusLMS.Infrastructure.Tests\GrandCircusLMS.Infrastructure.Tests.csproj", "{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandCircusLMS-CodeFirst.Tests", "GrandCircusLMS-CodeFirst.Tests\GrandCircusLMS-CodeFirst.Tests.csproj", "{CA4D167F-0549-4DCF-90AF-86B8C00868DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +37,29 @@ Global
 		{D99C1E57-F858-4014-AE57-E66A429A0F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D99C1E57-F858-4014-AE57-E66A429A0F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D99C1E57-F858-4014-AE57-E66A429A0F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BEEBF60-D942-4185-977B-2D1AB3FFCDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BEEBF60-D942-4185-977B-2D1AB3FFCDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BEEBF60-D942-4185-977B-2D1AB3FFCDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BEEBF60-D942-4185-977B-2D1AB3FFCDE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{604E05D9-2364-4116-AB40-177398BDBB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{604E05D9-2364-4116-AB40-177398BDBB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{604E05D9-2364-4116-AB40-177398BDBB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{604E05D9-2364-4116-AB40-177398BDBB94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA4D167F-0549-4DCF-90AF-86B8C00868DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4D167F-0549-4DCF-90AF-86B8C00868DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4D167F-0549-4DCF-90AF-86B8C00868DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4D167F-0549-4DCF-90AF-86B8C00868DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{983F4FD1-10EF-48E5-9BF3-DF2BBE48C657} = {77EE9F96-6F36-4CA7-A2DD-7FC055D47388}
+		{CA4D167F-0549-4DCF-90AF-86B8C00868DD} = {77EE9F96-6F36-4CA7-A2DD-7FC055D47388}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {221D0EEA-7283-4F19-919B-10557536CA4D}

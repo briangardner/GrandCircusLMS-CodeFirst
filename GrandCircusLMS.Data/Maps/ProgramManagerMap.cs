@@ -9,12 +9,10 @@ using System.Threading.Tasks;
 
 namespace GrandCircusLMS.Data.Maps
 {
-    internal class ProgramManagerMap : EntityTypeConfiguration<ProgramManager>
+    internal class ProgramManagerMap : BaseEntityMap<ProgramManager>
     {
         public ProgramManagerMap()
         {
-            HasKey(x => x.Id);
-            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             HasMany(x => x.Courses)
                 .WithRequired(x => x.ProgramManager)
                 .HasForeignKey(x => x.ProgramManagerId);
