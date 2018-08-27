@@ -16,6 +16,9 @@ namespace GrandCircusLMS.Data.Maps
             HasMany(x => x.Courses)
                 .WithRequired(x => x.Location)
                 .HasForeignKey(z =>z.LocationId);
+            HasMany(x => x.Departments)
+                .WithRequired(x => x.Location)
+                .HasForeignKey(x => x.LocationId);
         }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GrandCircusLMS.Domain.Models
 {
-    public class Location : BaseEntity
+    public class Department : BaseEntity
     {
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
+        public virtual Location Location { get; set; }
+        public int LocationId { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<Instructor> Instructors { get; set; }
+
     }
 }

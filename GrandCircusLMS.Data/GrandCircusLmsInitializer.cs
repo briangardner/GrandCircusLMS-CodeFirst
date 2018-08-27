@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data
@@ -10,17 +11,7 @@ namespace GrandCircusLMS.Data
         protected override void Seed(GrandCircusLmsContext context)
         {
             //This is where we start to seed our data.
-            var instructor = new Instructor()
-            {
-                Id = 1,
-                DateOfBirth = new DateTime(1981, 12, 26),
-                FirstName = "Brian",
-                LastName = "Gardner",
-                SocialSecurityNumber = "111-11-1111",
-                OfficeNumber = "42"
-            };
-            context.Set<Instructor>().Add(instructor);
-            context.SaveChanges();
+            
 
             var pm = new ProgramManager()
             {
@@ -33,6 +24,9 @@ namespace GrandCircusLMS.Data
             context.Set<ProgramManager>().Add(pm);
             context.SaveChanges();
 
+            
+
+
             var location = new Location()
             {
                 Id = 1,
@@ -44,6 +38,27 @@ namespace GrandCircusLMS.Data
             context.Set<Location>().Add(location);
             context.SaveChanges();
 
+            var dept = new Department()
+            {
+                Name = "Computer Science Department",
+                Location =location
+            };
+            context.Set<Department>().AddOrUpdate(dept);
+            context.SaveChanges();
+
+            var instructor = new Instructor()
+            {
+                Id = 1,
+                DateOfBirth = new DateTime(1981, 12, 26),
+                FirstName = "Brian",
+                LastName = "Gardner",
+                SocialSecurityNumber = "111-11-1111",
+                OfficeNumber = "42",
+                Department = dept
+            };
+            context.Set<Instructor>().Add(instructor);
+            context.SaveChanges();
+
             var course = new Course()
             {
                 Id = 1,
@@ -51,7 +66,8 @@ namespace GrandCircusLMS.Data
                 Name = "C# for Ducks",
                 Instructors = new List<Instructor>() {instructor},
                 Location = location,
-                ProgramManager = pm
+                ProgramManager = pm,
+                Department = dept
             };
             context.Set<Course>().Add(course);
             context.SaveChanges();

@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\IGrandCircusLmsContext.cs" />
     <Compile Include="Maps\BaseEntityMap.cs" />
     <Compile Include="Maps\CourseMap.cs" />
+    <Compile Include="Maps\DepartmentMap.cs" />
     <Compile Include="Maps\EnrollmentMap.cs" />
     <Compile Include="Maps\InstructorMap.cs" />
     <Compile Include="Maps\LocationMap.cs" />

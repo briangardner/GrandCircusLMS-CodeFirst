@@ -10,5 +10,7 @@ namespace GrandCircusLMS.Domain.Models
     {
         public string OfficeNumber { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual Department Department { get; set; }
+        public int DepartmentId { get; set; }
     }
 }
