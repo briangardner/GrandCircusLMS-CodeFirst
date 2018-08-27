@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace GrandCircusLMS.Domain.Models
 {
-    public abstract class Person
+    public abstract class Person : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         [MinLength(3)]
         public string FirstName { get; set; }

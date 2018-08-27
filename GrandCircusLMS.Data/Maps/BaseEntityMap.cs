@@ -9,7 +9,12 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data.Maps
 {
-    internal class StudentMap : BaseEntityMap<Student>
+    internal abstract class BaseEntityMap<T> : EntityTypeConfiguration<T> where T : BaseEntity
     {
+        protected BaseEntityMap()
+        {
+            HasKey(x => x.Id);
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+        }
     }
 }

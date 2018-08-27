@@ -9,12 +9,11 @@ using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data.Maps
 {
-    internal class CourseMap : EntityTypeConfiguration<Course>
+    internal class CourseMap : BaseEntityMap<Course>
     {
         public CourseMap()
         {
-            HasKey(x => x.Id);
-            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            
             HasMany(x => x.Enrollments)
                 .WithRequired(x => x.Course)
                 .HasForeignKey(x => x.CourseId);

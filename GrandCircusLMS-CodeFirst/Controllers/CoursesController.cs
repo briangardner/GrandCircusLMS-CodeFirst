@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using GrandCircusLMS.Data;
-using GrandCircusLMS.Data.Interfaces;
+using GrandCircusLMS.Domain.Interfaces;
 using GrandCircusLMS.Domain.Interfaces.Services;
 using GrandCircusLMS.Domain.Models;
 using GrandCircusLMS_CodeFirst.Models.Courses;
@@ -16,19 +10,20 @@ namespace GrandCircusLMS_CodeFirst.Controllers
 {
     public class CoursesController : Controller
     {
-        private readonly IGrandCircusLmsContext _context;
         private readonly ICourseService _courseService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CoursesController(IGrandCircusLmsContext context, ICourseService courseService)
+        public CoursesController(ICourseService courseService, 
+            IUnitOfWork unitOfWork)
         {
-            _context = context;
             _courseService = courseService;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Courses
         public ActionResult Index()
         {
-            var courses = _context.Courses.Include(c => c.Location).Include(c => c.ProgramManager);
+            var courses = _unitOfWork.Repository<Course>().GetAllIncluding(x => x.Location, x => x.ProgramManager);
             return View(courses.ToList());
         }
 
@@ -39,7 +34,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = _context.Courses.Find(id);
+            Course course = _unitOfWork.Repository<Course>().GetSingle(id.Value);
             if (course == null)
             {
                 return HttpNotFound();
@@ -54,7 +49,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = _context.Courses.Find(id);
+            Course course = _unitOfWork.Repository<Course>().GetSingle(id.Value);
             if (course == null)
             {
                 return HttpNotFound();
@@ -78,8 +73,8 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name");
-            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName");
+            ViewBag.LocationId = new SelectList(_unitOfWork.Repository<Location>().GetAll(), "Id", "Name");
+            ViewBag.ProgramManagerId = new SelectList(_unitOfWork.Repository<ProgramManager>().GetAll(), "Id", "FirstName");
             return View();
         }
 
@@ -92,13 +87,14 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Courses.Add(course);
-                _context.SaveChanges();
+                _unitOfWork.Repository<Course>().Insert(course);
+
+                _unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_unitOfWork.Repository<Location>().GetAll(), "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_unitOfWork.Repository<ProgramManager>().GetAll(), "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -109,13 +105,13 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = _context.Courses.Find(id);
+            Course course = _unitOfWork.Repository<Course>().GetSingle(id.Value);
             if (course == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_unitOfWork.Repository<Location>().GetAll(), "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_unitOfWork.Repository<ProgramManager>().GetAll(), "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -128,12 +124,13 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Entry(course).State = EntityState.Modified;
-                _context.SaveChanges();
+                _unitOfWork.Repository<Course>().Update(course);
+
+                _unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LocationId = new SelectList(_context.Locations, "Id", "Name", course.LocationId);
-            ViewBag.ProgramManagerId = new SelectList(_context.ProgramManagers, "Id", "FirstName", course.ProgramManagerId);
+            ViewBag.LocationId = new SelectList(_unitOfWork.Repository<Location>().GetAll(), "Id", "Name", course.LocationId);
+            ViewBag.ProgramManagerId = new SelectList(_unitOfWork.Repository<ProgramManager>().GetAll(), "Id", "FirstName", course.ProgramManagerId);
             return View(course);
         }
 
@@ -144,7 +141,8 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = _context.Courses.Find(id);
+
+            Course course = _unitOfWork.Repository<Course>().GetSingle(id.Value);
             if (course == null)
             {
                 return HttpNotFound();
@@ -157,9 +155,9 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = _context.Courses.Find(id);
-            _context.Courses.Remove(course);
-            _context.SaveChanges();
+            Course course = _unitOfWork.Repository<Course>().GetSingle(id);
+            _unitOfWork.Repository<Course>().Delete(course);
+            _unitOfWork.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -167,7 +165,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (disposing)
             {
-                _context.Dispose();
+                _unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

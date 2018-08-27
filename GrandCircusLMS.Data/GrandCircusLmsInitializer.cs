@@ -19,7 +19,7 @@ namespace GrandCircusLMS.Data
                 SocialSecurityNumber = "111-11-1111",
                 OfficeNumber = "42"
             };
-            context.Instructors.Add(instructor);
+            context.Set<Instructor>().Add(instructor);
             context.SaveChanges();
 
             var pm = new ProgramManager()
@@ -30,7 +30,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Perdue",
                 SocialSecurityNumber = "222-22-2222",
             };
-            context.ProgramManagers.Add(pm);
+            context.Set<ProgramManager>().Add(pm);
             context.SaveChanges();
 
             var location = new Location()
@@ -41,7 +41,7 @@ namespace GrandCircusLMS.Data
                 City = "Grand Rapids",
                 State = "Michigan"
             };
-            context.Locations.Add(location);
+            context.Set<Location>().Add(location);
             context.SaveChanges();
 
             var course = new Course()
@@ -53,10 +53,10 @@ namespace GrandCircusLMS.Data
                 Location = location,
                 ProgramManager = pm
             };
-            context.Courses.Add(course);
+            context.Set<Course>().Add(course);
             context.SaveChanges();
 
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 1,
                 DateOfBirth = new DateTime(1985, 1, 1),
@@ -65,7 +65,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Armstrong",
                 SocialSecurityNumber = "111-11-1112"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 2,
                 DateOfBirth = new DateTime(1987, 2, 16),
@@ -74,7 +74,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Cacciano",
                 SocialSecurityNumber = "111-11-1113"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 3,
                 DateOfBirth = new DateTime(1992, 3, 17),
@@ -83,7 +83,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Clark",
                 SocialSecurityNumber = "111-11-1114"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 4,
                 DateOfBirth = new DateTime(1989, 4, 17),
@@ -92,7 +92,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Blair",
                 SocialSecurityNumber = "111-11-1115"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 5,
                 DateOfBirth = new DateTime(1993, 4, 1),
@@ -101,7 +101,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Rai",
                 SocialSecurityNumber = "111-11-1116"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 6,
                 DateOfBirth = new DateTime(1991, 5, 2),
@@ -110,7 +110,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Freestone",
                 SocialSecurityNumber = "111-11-1117"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 7,
                 DateOfBirth = new DateTime(1991, 5, 2),
@@ -119,7 +119,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Sculley",
                 SocialSecurityNumber = "111-11-1118"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 8,
                 DateOfBirth = new DateTime(1993, 5, 23),
@@ -128,7 +128,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Hinman",
                 SocialSecurityNumber = "111-11-1119"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 9,
                 DateOfBirth = new DateTime(1990, 6, 23),
@@ -137,7 +137,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Butcher",
                 SocialSecurityNumber = "111-11-1120"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 10,
                 DateOfBirth = new DateTime(1992, 8, 23),
@@ -146,7 +146,7 @@ namespace GrandCircusLMS.Data
                 LastName = "Stafford",
                 SocialSecurityNumber = "111-11-1121"
             });
-            context.Students.Add(new Student()
+            context.Set<Student>().Add(new Student()
             {
                 Id = 11,
                 DateOfBirth = new DateTime(1999, 1, 23),
@@ -157,67 +157,67 @@ namespace GrandCircusLMS.Data
             });
             context.SaveChanges();
 
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 1,
                 CourseId = 1,
                 StudentId = 1
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 2,
                 CourseId = 1,
                 StudentId = 2
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 3,
                 CourseId = 1,
                 StudentId = 3
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 4,
                 CourseId = 1,
                 StudentId = 4
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 5,
                 CourseId = 1,
                 StudentId = 5
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 6,
                 CourseId = 1,
                 StudentId = 6
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 7,
                 CourseId = 1,
                 StudentId = 7
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 8,
                 CourseId = 1,
                 StudentId = 8
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 9,
                 CourseId = 1,
                 StudentId = 9
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 10,
                 CourseId = 1,
                 StudentId = 10
             });
-            context.Enrollments.Add(new Enrollment()
+            context.Set<Enrollment>().Add(new Enrollment()
             {
                 Id = 11,
                 CourseId = 1,

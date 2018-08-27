@@ -1,27 +1,24 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
-using GrandCircusLMS.Data;
-using GrandCircusLMS.Data.Interfaces;
+using GrandCircusLMS.Domain.Interfaces;
 using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS_CodeFirst.Controllers
 {
     public class InstructorsController : Controller
     {
-        private readonly IGrandCircusLmsContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public InstructorsController(IGrandCircusLmsContext context)
+        public InstructorsController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         
 
         // GET: Instructors
         public ActionResult Index()
         {
-            return View(_context.Instructors.ToList());
+            return View(_unitOfWork.Repository<Instructor>().GetAll());
         }
 
         // GET: Instructors/Details/5
@@ -31,7 +28,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instructor instructor = _context.Instructors.Find(id);
+            Instructor instructor = _unitOfWork.Repository<Instructor>().GetSingle(id.Value);
             if (instructor == null)
             {
                 return HttpNotFound();
@@ -54,8 +51,8 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Instructors.Add(instructor);
-                _context.SaveChanges();
+                _unitOfWork.Repository<Instructor>().Insert(instructor);
+                _unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -69,7 +66,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instructor instructor = _context.Instructors.Find(id);
+            Instructor instructor = _unitOfWork.Repository<Instructor>().GetSingle(id.Value);
             if (instructor == null)
             {
                 return HttpNotFound();
@@ -86,8 +83,8 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Entry(instructor).State = EntityState.Modified;
-                _context.SaveChanges();
+                _unitOfWork.Repository<Instructor>().Update(instructor);
+                _unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(instructor);
@@ -100,7 +97,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Instructor instructor = _context.Instructors.Find(id);
+            Instructor instructor = _unitOfWork.Repository<Instructor>().GetSingle(id.Value);
             if (instructor == null)
             {
                 return HttpNotFound();
@@ -113,9 +110,9 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Instructor instructor = _context.Instructors.Find(id);
-            _context.Instructors.Remove(instructor);
-            _context.SaveChanges();
+            Instructor instructor = _unitOfWork.Repository<Instructor>().GetSingle(id);
+            _unitOfWork.Repository<Instructor>().Delete(instructor);
+            _unitOfWork.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -123,7 +120,7 @@ namespace GrandCircusLMS_CodeFirst.Controllers
         {
             if (disposing)
             {
-                _context.Dispose();
+                _unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

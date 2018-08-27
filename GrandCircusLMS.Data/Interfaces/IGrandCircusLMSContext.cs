@@ -4,21 +4,24 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GrandCircusLMS.Domain.Models;
 
 namespace GrandCircusLMS.Data.Interfaces
 {
-    public interface IGrandCircusLmsContext
+    public interface IGrandCircusLmsContext : IDisposable
     {
-        IDbSet<Location> Locations { get; set; }
-        IDbSet<Course> Courses { get; set; }
-        IDbSet<Student> Students { get; set; }
-        IDbSet<Instructor> Instructors { get; set; }
-        IDbSet<Enrollment> Enrollments { get; set; }
-        IDbSet<ProgramManager> ProgramManagers { get; set; }
+        IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
+        void SetAsAdded<TEntity>(TEntity entity) where TEntity : BaseEntity;
+        void SetAsModified<TEntity>(TEntity entity) where TEntity : BaseEntity;
+        void SetAsDeleted<TEntity>(TEntity entity) where TEntity : BaseEntity;
         int SaveChanges();
-        DbEntityEntry<T> Entry<T>(T entity) where T : class;
-        void Dispose();
+        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        void BeginTransaction();
+        int Commit();
+        void Rollback();
+        Task<int> CommitAsync();
     }
 }

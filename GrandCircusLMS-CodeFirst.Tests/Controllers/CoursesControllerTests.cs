@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using GrandCircusLMS.Data.Interfaces;
+using GrandCircusLMS.Domain.Interfaces;
 using GrandCircusLMS.Domain.Interfaces.Services;
 using GrandCircusLMS.Domain.Models;
 using GrandCircusLMS_CodeFirst.Controllers;
@@ -25,28 +26,25 @@ namespace GrandCircusLMS_CodeFirst.Tests.Controllers
             }
         };
 
-        private readonly IQueryable<Course> _courses = new List<Course>()
+        private Course testCourse = new Course()
         {
-            new Course()
+            Id = 5,
+            Name = "Test Course",
+            Instructors = new List<Instructor>(),
+            Location = new Location()
             {
-                Id = 5,
-                Name = "Test Course",
-                Instructors = new List<Instructor>(),
-                Location = new Location()
-                {
-                    Name = "Test Location"
-                },
-                ProgramManager = new ProgramManager()
-                {
-                    FirstName = "Test",
-                    LastName = "Program Manager"
-                }
+                Name = "Test Location"
+            },
+            ProgramManager = new ProgramManager()
+            {
+                FirstName = "Test",
+                LastName = "Program Manager"
             }
-        }.AsQueryable();
+        };
 
-        private Mock<IGrandCircusLmsContext> _contextMock;
         private Mock<ICourseService> _courseServiceMock;
-        private Mock<IDbSet<Course>> _courseSetMock;
+        private Mock<IRepository<Course>> _courseRepositoryMock;
+        private Mock<IUnitOfWork> _unitOfWorkMock;
 
         [SetUp]
         public void Setup()
@@ -54,22 +52,19 @@ namespace GrandCircusLMS_CodeFirst.Tests.Controllers
             _courseServiceMock = new Mock<ICourseService>();
             _courseServiceMock.Setup(x => x.GetStudentsPassing(It.IsAny<Course>())).Returns(_passingStudents);
 
-            _courseSetMock = new Mock<IDbSet<Course>>();
-            _courseSetMock.As<IQueryable<Course>>().Setup(m => m.Provider).Returns(_courses.Provider);
-            _courseSetMock.As<IQueryable<Course>>().Setup(m => m.Expression).Returns(_courses.Expression);
-            _courseSetMock.As<IQueryable<Course>>().Setup(m => m.ElementType).Returns(_courses.ElementType);
-            _courseSetMock.As<IQueryable<Course>>().Setup(m => m.GetEnumerator()).Returns(_courses.GetEnumerator);
-            _courseSetMock.Setup(x => x.Find(It.IsAny<int>())).Returns(_courses.First);
             
+            _courseRepositoryMock = new Mock<IRepository<Course>>();
+            _courseRepositoryMock.Setup(x => x.GetSingle(It.IsAny<int>())).Returns(testCourse);
 
-            _contextMock = new Mock<IGrandCircusLmsContext>();
-            _contextMock.Setup(x => x.Courses).Returns(_courseSetMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _unitOfWorkMock.Setup(x => x.Repository<Course>()).Returns(_courseRepositoryMock.Object);
+
         }
 
         [Test]
         public void Should_Return_ViewModel_With_CourseDetails()
         {
-            var controller = new CoursesController(_contextMock.Object, _courseServiceMock.Object);
+            var controller = new CoursesController(_courseServiceMock.Object, _unitOfWorkMock.Object);
             var result = (controller.CourseDetails(5) as ViewResult)?.ViewData.Model as CourseDetailsViewModel;
 
             Assert.AreEqual(_passingStudents, result?.StudentsPassing);
