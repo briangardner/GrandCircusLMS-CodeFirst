@@ -122,5 +122,9 @@ namespace GrandCircusLMS.Data
             }
             base.Dispose(disposing);
         }
+
+        public System.Data.Entity.DbSet<GrandCircusLMS.Domain.Models.Department> Departments { get; set; }
+
+        public System.Data.Entity.DbSet<GrandCircusLMS.Domain.Models.Location> Locations { get; set; }
     }
 }
